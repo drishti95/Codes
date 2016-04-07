@@ -1,0 +1,19 @@
+%{ 
+int count=0,words=0,big=0,lines=0;
+%}
+%%
+[\n]+ {lines++;}
+[A-Za-z]+ {count++;}
+[., ]+ {words++; if(count>10)big++; count=0;}
+%%
+int main()
+{
+yyin=fopen("abc.c","r");
+yylex();
+printf("Words : %d , Big Words :%d , Lines : %d", words,big,lines);
+return 0;
+}
+int yywrap()
+{ 
+return 1;
+}

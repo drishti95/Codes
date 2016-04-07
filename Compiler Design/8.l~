@@ -1,0 +1,5 @@
+%%
+"scanf" {fprintf(yyout,"readf");}
+"printf" {fprintf(yyout,"writef");}
+%%
+

@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=void\ initial()
+comment1.target=void\ not_sold()
+comment2.target=void\ sold()
+comment3.target=void\ displaytotal()
+comment4.target=void\ displayticket()
+comment5.params=args
+comment5.target=void\ main([)
+numComments=6

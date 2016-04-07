@@ -1,0 +1,20 @@
+%{
+int i,count=0;
+%}
+%%
+"{" {count++;fprintf(yyout,"{");}
+"\n}" {count--;fprintf(yyout,"\n");for(i=0;i<count;i++) fprintf(yyout,"\t");fprintf(yyout,"}");}
+"\n" {for(i=0;i<count;i++) fprintf(yyout,"\t");}
+%%
+
+int main()
+{
+yyin=fopen("abc.c","r");
+yyout=fopen("out.c","w");
+yylex();
+return 0;
+}
+int yywrap()
+{
+return 1;
+}

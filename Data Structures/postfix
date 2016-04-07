@@ -1,0 +1,49 @@
+#include<stdio.h>
+#include<conio.h>
+int top=-1;
+char exp[100];
+void main()
+{
+printf("enter exp");
+scanf("%s",&exp);
+for(i=0;exp[i]!='\0';i++)
+{
+if(0<=exp[i]<=9)
+{
+push(exp[i]);
+}
+else
+{
+if(exp[i]='+'||exp[i]=='-'||exp[i]=='*'||exp[i]=='/')
+{
+int val1=pop();
+int val2=pop();
+int val3;
+switch(exp[i])
+{
+case +: val3=val1+val2;break;
+case -: val3=val1-val2;break;
+case *: val3=val1*val2;break;
+case /: val3=val1/val2;break;
+default: printf("invalid sym");
+break;
+}
+push(val3);
+}}
+printf("%d",pop());
+}
+}
+void push(int data)
+{
+if(top==99)
+return;
+exp[++top]=data;
+}
+int pop()
+{
+if(top==-1)
+return;
+int item=exp[top--];
+return item;
+}
+

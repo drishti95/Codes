@@ -1,0 +1,79 @@
+
+/*Program: Applet program. Split entered name into first middle and last names.
+*Filename : GUI.java
+*Author:Drishti Agarwal
+*Date Of Creation : 29.03.2016
+*/
+
+
+
+import javax.swing.JOptionPane;
+public class GUI {
+    
+private static String fullName;
+private static String firstName;
+private static String middleName;
+private static String lastName;
+
+
+public static void main(String[] args)
+{
+    start();
+}
+
+public static void start()
+{
+    greet();
+    askInput();
+    seperateFullName(fullName);
+    showResult();
+}
+
+private static void greet()
+{
+    int dialogResult = JOptionPane.showConfirmDialog(null,  "This program asks you for your name"
+                            + " and gives back your first,middle and last name.\nDo you want to continue?");
+
+    if (dialogResult == JOptionPane.NO_OPTION)
+    {
+        JOptionPane.showMessageDialog(null, "Shutting down...", null, JOptionPane.WARNING_MESSAGE);
+        System.exit(0);
+    }
+
+}
+
+private static void askInput()
+{
+    fullName = JOptionPane.showInputDialog("Please enter your name.");
+    fullName.trim();
+}
+
+private static void seperateFullName(String fullName)
+{
+    try
+    {
+        int firstSpace = fullName.indexOf(" ");
+        firstName = fullName.substring(0, firstSpace);
+        int lastSpace = fullName.lastIndexOf(" ");
+        middleName = fullName.substring(firstSpace + 1 , lastSpace);
+        lastName = fullName.substring(lastSpace + 1, fullName.length());
+        firstName.trim();
+        lastName.trim();
+        middleName.trim();
+
+        
+    }
+    catch (StringIndexOutOfBoundsException e)
+    {
+        JOptionPane.showMessageDialog(null, "An input field cannot be blank!", null,
+                JOptionPane.WARNING_MESSAGE, null);
+        start();
+    }
+}
+
+private static void showResult()
+{
+    JOptionPane.showMessageDialog(null, "Your name after splitting :\nFirst Name:  "
+            + firstName + "\nMiddle Name: " + middleName + "\nLast Name: " + lastName + "");
+}
+}

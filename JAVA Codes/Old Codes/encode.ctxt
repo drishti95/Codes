@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.params=st
+comment0.target=void\ input(String)
+comment1.params=move
+comment1.target=void\ perform(int)
+comment2.target=void\ display()
+numComments=3
