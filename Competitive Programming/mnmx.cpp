@@ -2,21 +2,24 @@
 using namespace std;
 int main()
 {
-long long int t,a,b;
+unsigned long long int t,a,b,x,i;
 cin>>t;
+b=100001;
 while(t--)
 {
 cin>>a;
-b=0;
-while(a>0)
+for(i=0;i<a;i++)
 {
-b+=(a-2)/2;
-a-=2;
+cin>>b;
+if(b<x)
+x=b;
 }
-cout<<b<<endl;
+
+cout<<(a-1)*x<<endl;
 }
 
 
 return 0;
 }
+
 

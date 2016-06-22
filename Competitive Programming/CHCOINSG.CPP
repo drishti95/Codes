@@ -2,21 +2,16 @@
 using namespace std;
 int main()
 {
-long long int t,a,b;
+long long int t,n;
 cin>>t;
 while(t--)
 {
-cin>>a;
-b=0;
-while(a>0)
-{
-b+=(a-2)/2;
-a-=2;
-}
-cout<<b<<endl;
-}
+cin>>n;
+if(n%6==0)
+cout<<"Misha"<<endl;
+else
+cout<<"Chef"<<endl;
 
-
+}
 return 0;
 }
-

@@ -2,21 +2,12 @@
 using namespace std;
 int main()
 {
-long long int t,a,b;
+int t,n;
 cin>>t;
 while(t--)
 {
-cin>>a;
-b=0;
-while(a>0)
-{
-b+=(a-2)/2;
-a-=2;
+cin>>n;
+cout<<floor(sqrt(n))<<endl;
 }
-cout<<b<<endl;
-}
-
-
 return 0;
 }
-
