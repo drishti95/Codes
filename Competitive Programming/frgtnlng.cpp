@@ -2,42 +2,42 @@
 using namespace std;
 int main()
 {
-int n,k,t,l,i,j;
-char w[6];
+int n,k,t,m,i,j;
 cin>>t;
 while(t--)
 {
 cin>>n>>k;
-char ar[7*n];
-char p[n*7];
+char ar[n][6];
+int ai[n];
 for(i=0;i<n;i++)
 {
-cin>>ar;
+cin>>ar[i];
+ai[i]=0;
 }
 while(k--)
 {
-cin>>l;
-for(i=0;i<l;i++)
-{
-cin>>w;
-for(j=0;j<n;j++)
-{
-if(strcmp(w,ar[j])==0)
-{
-  p[j]="YES";
-}
-}
-}
-}
-for(j=0;j<n;j++)
-{
-if(strcmp(p[j],"YES")!=0)
-p[j]="NO";
+cin>>m;
+char p[m][6];
+for(i=0;i<m;i++)
+			cin>>p[i];
+			for(i=0;i<n;i++)
+			{
+				if(ai[i]==1)
+				continue;
+				for(j=0;j<m;j++)
+				if(strcmp(ar[i],p[j])==0)
+				{
+					ai[i]=1;
+					break;
+				}
+			}
 }
 for(i=0;i<n;i++)
-{
-cout<<p[j];
-}
+		if(ai[i])
+		cout<<"YES ";
+		else
+		cout<<"NO ";
+		cout<<endl;
 }
 return 0;
 }

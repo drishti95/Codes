@@ -2,20 +2,20 @@
 using namespace std;
 int main()
 {
-unsigned long long int t,a,b,x,i;
+long long int t,a,b,x,i,y;
 cin>>t;
-b=100001;
 while(t--)
 {
 cin>>a;
+x=100000;
+
 for(i=0;i<a;i++)
 {
 cin>>b;
 if(b<x)
 x=b;
 }
-
-cout<<(a-1)*x<<endl;
+cout<<x*(a-1)<<endl;
 }
 
 
