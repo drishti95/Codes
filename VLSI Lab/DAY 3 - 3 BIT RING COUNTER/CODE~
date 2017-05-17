@@ -1,0 +1,217 @@
+//4 bit Ring Counter: http://verilogcodes.blogspot.in/2015/10/verilog-code-for-4-bit-ring-counter.html
+
+//declare the Verilog module - The inputs and output port names.
+module ring_counter(
+    Clock,
+    Reset,
+    Count_out
+    );
+
+    //what are the input ports and their sizes.
+    input Clock;
+    input Reset;
+    //what are the output ports and their sizes.
+    output [3:0] Count_out;
+    //Internal variables
+    reg [3:0] Count_temp;
+
+    //Whenever the Clock changes from 0 to 1(positive edge) or 
+    //a change in Reset, execute the always block.
+    always @(posedge(Clock),Reset)
+    begin
+        if(Reset == 1'b1)   begin  //when Reset is high 
+            Count_temp = 4'b0001;   end  //The Count value is reset to "0001".
+        else if(Clock == 1'b1)  begin  //When the Clock is high
+            //Left shift the Count value.
+            Count_temp = {Count_temp[2:0],Count_temp[3]};   end 
+    end
+    
+    //The Count value is assigned to final output port.
+    assign Count_out = Count_temp;
+    
+endmodule
+
+Testbench for Ring Counter:
+
+module tb_ring;
+
+    // Inputs
+    reg Clock;
+    reg Reset;
+
+    // Outputs
+    wire [3:0] Count_out;
+
+    // Instantiate the Unit Under Test (UUT)
+    ring_counter uut (
+        .Clock(Clock), 
+        .Reset(Reset), 
+        .Count_out(Count_out)
+    );
+
+    ///////////////////Clock generation ///////////////////////////
+    initial Clock = 0; 
+    always #10 Clock = ~Clock; 
+    ////////// #10 means wait for 10 ns before executing the next statement. ///////////
+    
+    //Simulation inputs.
+    initial begin
+    //Apply Reset for 50 ns.
+        Reset = 1; //Reset is high
+        #50;       //Wait for 50 ns
+        Reset = 0; //Reset is low.
+    end
+      
+endmodule
+
+********************************************************************************************************************************************
+
+
+http://verilogbyvijaysn.blogspot.in/2015/07/counters-ring-counter.html
+
+RING COUNTER USING D FLIP FLOP
+
+D FLIP FLOP
+module df1(q,d,c);
+output q;
+input d,c;
+reg q;
+initial
+q=1'b1;
+always@(posedge c)
+q=d;
+endmodule
+
+RING COUNTER
+module ringcounter(q,clk);
+inout [3:0]q;
+input clk;
+df1 f1(q[0],q[3],clk);
+df2 f2(q[1],q[0],clk);
+df2 f3(q[2],q[1],clk);
+df2 f4(q[3],q[2],clk);
+endmodule
+
+**********************************************************************************************************************************************
+
+http://www.referencedesigner.com/tutorials/verilog/verilog_34.php
+EXPLAINATION
+
+*********************************************************************************************************************************************
+
+http://electrofriends.com/source-codes/digital-electroninc/verilog-hdl/verilog-hdl-program-for-ring-counter/
+
+
+
+CORRECT MINE
+
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    09:26:38 02/06/2017 
+// Design Name: 
+// Module Name:    ring_counter 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+//declare the Verilog module - The inputs and output port names.
+module ring_counter(
+    Clock,
+    Reset,
+    Count_out
+    );
+
+    //what are the input ports and their sizes.
+    input Clock;
+    input Reset;
+    //what are the output ports and their sizes.
+    output [2:0] Count_out;
+    //Internal variables
+    reg [2:0] Count_temp;
+
+    //Whenever the Clock changes from 0 to 1(positive edge) or 
+    //a change in Reset, execute the always block.
+    always @(posedge(Clock))
+    begin
+        if(Reset == 1'b1)   begin  //when Reset is high 
+            Count_temp = 3'b001;   end  //The Count value is reset to "001".
+        else if(Clock == 1'b1)  begin  //When the Clock is high
+            //Left shift the Count value.
+            Count_temp = {Count_temp[1:0],Count_temp[2]};   end 
+    end
+    
+    //The Count value is assigned to final output port.
+    assign Count_out = Count_temp;
+    
+endmodule
+
+
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   09:29:04 02/06/2017
+// Design Name:   ring_counter
+// Module Name:   D:/ring_counter/tb_ring.v
+// Project Name:  ring_counter
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: ring_counter
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module tb_ring;
+
+    // Inputs
+    reg Clock;
+    reg Reset;
+
+    // Outputs
+    wire [2:0] Count_out;
+
+    // Instantiate the Unit Under Test (UUT)
+    ring_counter uut (
+        .Clock(Clock), 
+        .Reset(Reset), 
+        .Count_out(Count_out)
+    );
+
+    ///////////////////Clock generation ///////////////////////////
+    initial Clock = 0; 
+    always #10 Clock = ~Clock; 
+    ////////// #10 means wait for 10 ns before executing the next statement. ///////////
+    
+    //Simulation inputs.
+    initial begin
+    //Apply Reset for 50 ns.
+        Reset = 1; //Reset is high
+        #50;       //Wait for 50 ns
+        Reset = 0; //Reset is low.
+    end
+      
+endmodule
+
+
+
+

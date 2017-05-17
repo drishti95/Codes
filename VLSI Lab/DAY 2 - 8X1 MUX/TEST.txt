@@ -1,0 +1,89 @@
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   10:33:10 01/30/2017
+// Design Name:   MUX8TO1
+// Module Name:   D:/MUX8TO1/TEST.v
+// Project Name:  MUX8TO1
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: MUX8TO1
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module TEST;
+
+	// Inputs
+	reg [2:0] sel;
+	reg A;
+	reg B;
+	reg C;
+	reg D;
+	reg E;
+	reg F;
+	reg G;
+	reg H;
+
+	// Outputs
+	wire MUX_OUT;
+
+	// Instantiate the Unit Under Test (UUT)
+	MUX8TO1 uut (
+		.sel(sel), 
+		.A(A), 
+		.B(B), 
+		.C(C), 
+		.D(D), 
+		.E(E), 
+		.F(F), 
+		.G(G), 
+		.H(H), 
+		.MUX_OUT(MUX_OUT)
+	);
+
+	initial begin
+		// Initialize Inputs
+		sel = 111;
+		A = 0;
+		B = 1;
+		C = 0;
+		D = 1;
+		E = 0;
+		F = 1;
+		G = 0;
+		H = 0;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+        
+		// Add stimulus here
+
+		sel = 001;
+		A = 0;
+		B = 1;
+		C = 0;
+		D = 1;
+		E = 0;
+		F = 0;
+		G = 0;
+		H = 0;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+		
+	
+	end
+      
+endmodule
+

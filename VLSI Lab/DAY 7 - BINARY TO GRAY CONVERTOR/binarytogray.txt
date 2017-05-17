@@ -1,0 +1,51 @@
+module mainModule ( din ,dout );
+
+output [3:0] dout ;
+
+input [3:0] din ;
+
+assign dout[3] = din[3];
+assign dout[2] = din[3]^din[2];
+assign dout[1] = din[2]^din[1];
+assign dout[0] = din[1]^din[0];
+
+endmodule
+
+
+
+TEST:
+
+
+module test;
+
+    // Inputs
+    reg [3:0] din;
+
+    // Outputs
+    wire [3:0] dout;
+
+    // Instantiate the Unit Under Test (UUT)
+    mainModule uut (
+        .din(din), 
+        .dout(dout)
+    );
+
+    initial begin
+        // Initialize Inputs
+        din = 5;
+
+        // Wait 100 ns for global reset to finish
+        #100;
+            din = 10;
+
+        // Wait 100 ns for global reset to finish
+        #100;
+           din = 9;
+            
+        #100
+           din = 6;
+        // Add stimulus here
+
+    end
+      
+endmodule

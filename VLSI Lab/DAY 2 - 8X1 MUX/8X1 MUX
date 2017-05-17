@@ -1,0 +1,54 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    10:29:00 01/30/2017 
+// Design Name: 
+// Module Name:    MUX8TO1 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+/*module MUX8TO1(sel, A,B,C,D,E,F,G,H, MUX_OUT);
+input [2:0] sel;
+input A,B,C,D,E,F,G,H;
+output reg MUX_OUT;
+always@(A,B,C,D,E,F,G,H,sel)
+begin
+case(sel)
+3'd0:MUX_OUT=A;
+3'd1:MUX_OUT=B;
+3'd2:MUX_OUT=C;
+3'd3:MUX_OUT=D;
+3'd4:MUX_OUT=E;
+3'd5:MUX_OUT=F;
+3'd6:MUX_OUT=G;
+3'd7:MUX_OUT=H;
+default:; // indicates null
+endcase
+end
+endmodule*/
+
+module MUX8TO1(sel, A,B,C,D,E,F,G,H, MUX_OUT);
+input [2:0] sel;
+input A,B,C,D,E,F,G,H;
+output reg  MUX_OUT;
+always@(A,B,C,D,E,F,G,H,sel)
+begin
+MUX_OUT =(((!sel[0])&(!sel[1])&(!sel[2])&A)|((sel[0])&(!sel[1])&(!sel[2])&B)| ((!sel[0])&(sel[1])&(!sel[2])&C)|
+                ((sel[0])&(sel[1])&(!sel[2])&D)| ((!sel[0])&(!sel[1])&(sel[2])&E)| ((sel[0])&(!sel[1])&(sel[2])&F)|
+                ((sel[0])&(sel[1])&(!sel[2])&G)| ((sel[0])&(sel[1])&(sel[2])&H));
+end
+
+endmodule
+
+

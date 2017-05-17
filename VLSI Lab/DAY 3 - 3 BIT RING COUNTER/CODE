@@ -1,0 +1,112 @@
+
+
+timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    09:26:38 02/06/2017 
+// Design Name: 
+// Module Name:    ring_counter 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+//declare the Verilog module - The inputs and output port names.
+module ring_counter(
+    Clock,
+    Reset,
+    Count_out
+    );
+
+    //what are the input ports and their sizes.
+    input Clock;
+    input Reset;
+    //what are the output ports and their sizes.
+    output [2:0] Count_out;
+    //Internal variables
+    reg [2:0] Count_temp;
+
+    //Whenever the Clock changes from 0 to 1(positive edge) or 
+    //a change in Reset, execute the always block.
+    always @(posedge(Clock))
+    begin
+        if(Reset == 1'b1)   begin  //when Reset is high 
+            Count_temp = 3'b001;   end  //The Count value is reset to "001".
+        else if(Clock == 1'b1)  begin  //When the Clock is high
+            //Left shift the Count value.
+            Count_temp = {Count_temp[1:0],Count_temp[2]};   end 
+    end
+    
+    //The Count value is assigned to final output port.
+    assign Count_out = Count_temp;
+    
+endmodule
+
+
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   09:29:04 02/06/2017
+// Design Name:   ring_counter
+// Module Name:   D:/ring_counter/tb_ring.v
+// Project Name:  ring_counter
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: ring_counter
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module tb_ring;
+
+    // Inputs
+    reg Clock;
+    reg Reset;
+
+    // Outputs
+    wire [2:0] Count_out;
+
+    // Instantiate the Unit Under Test (UUT)
+    ring_counter uut (
+        .Clock(Clock), 
+        .Reset(Reset), 
+        .Count_out(Count_out)
+    );
+
+    ///////////////////Clock generation ///////////////////////////
+    initial Clock = 0; 
+    always #10 Clock = ~Clock; 
+    ////////// #10 means wait for 10 ns before executing the next statement. ///////////
+    
+    //Simulation inputs.
+    initial begin
+    //Apply Reset for 50 ns.
+        Reset = 1; //Reset is high
+        #50;       //Wait for 50 ns
+        Reset = 0; //Reset is low.
+    end
+      
+endmodule
+
+
+
+

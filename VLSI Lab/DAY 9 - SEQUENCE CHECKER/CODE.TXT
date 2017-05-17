@@ -1,0 +1,178 @@
+VERILOG MODULE
+_______________
+
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company:
+// Engineer:
+//
+// Create Date:    23:42:39 03/13/2016
+// Design Name:
+// Module Name:    SeqChcker
+// Project Name:
+// Target Devices:
+// Tool versions:
+// Description:
+//
+// Dependencies:
+//
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+//
+//////////////////////////////////////////////////////////////////////////////////
+module SeqChcker(din, clr,clk,y);
+input din;
+input clr;
+input clk;
+output reg y;
+reg [2:0] state;
+parameter S0 = 3'b000, //all state
+          S1 = 3'b001,
+          S2 = 3'b010,
+          S3 = 3'b011,
+             S4 = 3'b100,
+             G = 3'b101;
+             
+always @(posedge clk or posedge clr)
+ begin
+ if (clr==1)
+    begin
+    state=S0;
+    end
+ else
+    begin
+     case (state)
+        S0: if (din == 1'b1)
+                 begin
+                state = S1;
+                 y=1'b0;
+                 end
+            else
+                 begin
+                 state = S0;
+                 y=1'b0;
+                 end
+        S1: if (din == 1'b0)
+                 begin
+              state = S2;
+                 y=1'b0;
+                 end
+             else
+                 begin
+                 y=1'b0;
+                  state = S1;
+                 end
+        S2: if (din == 1'b0)
+                 begin
+                state = S3;
+                 y=1'b0;
+                 end   
+                 else
+                 begin
+                 state = S1;
+                 y=1'b0;
+                 end
+        S3: if (din == 1'b0)
+                 begin
+                state = S4;
+                 y=1'b0;                //output will come
+                 end
+             else
+                 begin
+                 state = S1;
+                 y=1'b0;
+                 end
+        S4: if (din == 1'b1)
+                 begin
+                state = G;
+                 y=1'b1;                //output will come
+                 end
+             else
+                 begin
+                 state = S0;
+                 y=1'b0;
+                 end
+        G: state = G;
+        default: state = S0;
+      endcase
+      end
+end
+endmodule
+
+
+
+
+TEST
+_____
+
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company:
+// Engineer:
+//
+// Create Date:   00:10:24 03/14/2016
+// Design Name:   SeqChcker
+// Module Name:   C:/Users/Abhishek Agarwal/Xilinx Proj/sequenceChecker/test.v
+// Project Name:  sequenceChecker
+// Target Device: 
+// Tool versions: 
+// Description:
+//
+// Verilog Test Fixture created by ISE for module: SeqChcker
+//
+// Dependencies:
+//
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+//
+////////////////////////////////////////////////////////////////////////////////
+
+module test;
+
+    // Inputs
+    reg din;
+    reg clr;
+    reg clk;
+    // Outputs
+    wire y;
+
+    // Instantiate the Unit Under Test (UUT)
+    SeqChcker uut (
+        .din(din),
+        .clr(clr),
+        .clk(clk),
+        .y(y)
+    );
+
+    initial begin
+        // Initialize Inputs
+        din = 0;
+        clr = 0;
+        clk=0;
+        // Wait 100 ns for global reset to finish
+        #100;
+        clr=1;#50;
+          clr=0;#50;
+          din=1;#50;
+          din=1;#50;
+          din=0;#50;
+          din=0;#50;
+          din=0;#50;
+          din=0;#50;
+          din=1;#50;
+          din=0;#50;
+          din=0;#50;
+          din=0;#50;
+          din=1;#50;
+          din=1;#50;
+          din=1;#50;
+         
+        // Add stimulus here
+
+    end
+     always
+          #25 clk=~clk;
+endmodule
