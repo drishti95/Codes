@@ -16,17 +16,13 @@ bool isPrime(int number)
 int F(int L, int R, int X, int Y)
 {
      int result = 0,i,j;
+     double k;
      for( i = X ;i <= Y;i++)  {
          if( isPrime(i) ) {
              for( j = L; j<= R;j++ )
              {
-                  int number = ar[j];
-                 int  exponent = 0;
-                  while( number % i == 0 ) {
-                     exponent = exponent + 1 ;
-                     number = number/i;
-                  }
-                  result = result + exponent;
+                  if( ar[j] % i ==0)
+                  result = result + floor(log(ar[j])/log(i));
             }
      }
      }
