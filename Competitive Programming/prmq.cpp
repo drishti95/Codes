@@ -30,6 +30,8 @@ int F(int L, int R, int X, int Y)
 }
 int main()
 {
+ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 int r,t,i,L,R,X,Y,p;
 cin>>t;
 for(i=0;i<t;i++)
