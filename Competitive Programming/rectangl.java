@@ -8,13 +8,11 @@ class rectangl {
     public static void main(String[] args)
     {
         Scanner sc=new Scanner(System.in);
-        int ar[],a,b,t,i,c,d;
-
+        int ar[],t,i;
         t=Integer.parseInt(sc.nextLine());
         while(t>0)
         {
             ar=new int[4];
-            a=0;b=0;c=0;d=0;
             for(i=0;i<4;i++)
             {
                 ar[i]=sc.nextInt();
